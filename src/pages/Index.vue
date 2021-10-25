@@ -14,7 +14,8 @@
     </div>
 </template>
 <script>
-import Buttons from "../components/Buttons.vue"
+import Buttons from "../components/Buttons.vue";
+import audioFile from '../assets/alarm.mp3';
 export default {
     components:{Buttons},
     data(){
@@ -41,6 +42,10 @@ export default {
             clearInterval(this.interval);
             this.paused = true;
         },
+        playSound(){
+            var audio = new Audio(audioFile); // path to file
+            audio.play();
+        },
         startTimer(){
             this.started = true;
             this.paused = false;
@@ -50,6 +55,7 @@ export default {
                     if (this.expires_in === 0) {
                         console.log("SE SALIO DEL INTERVALO");
                         clearInterval(this.interval);
+                        this.playSound();
                         this.started = false;
                     } else {
                         this.expires_in -= 1;
